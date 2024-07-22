@@ -1,4 +1,4 @@
-name: Terraform Create Database Workflow (Microsserviço Consulta)
+name: Terraform Create Database Workflow (Consulta)
 
 on:
   push:

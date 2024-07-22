@@ -1,4 +1,4 @@
-name: Terraform Create Database Workflow (Autenticação)
+name: Terraform Create Database Workflow (Autenticacao)
 
 on:
   push:
