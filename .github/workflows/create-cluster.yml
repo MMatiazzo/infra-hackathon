@@ -1,13 +1,16 @@
-name: Create terraform plan on folder eks
+name: Terraform Create Cluster Workflow
 
 on:
   push:
     branches:
       - master
     paths:
-      - "eks/**"
-      - "consulta/**"
-      - "autenticacao/**"
+      - 'eks/**'
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'eks/**'
   workflow_dispatch:
 
 env:

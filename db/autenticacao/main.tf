@@ -3,7 +3,7 @@
 terraform {
   backend "s3" {
     bucket = "fiap-terraform"
-    key    = "rds-consulta/terraform.tfstate"
+    key    = "rds-autenticacao/terraform.tfstate"
     region = "us-east-1"
   }
 
@@ -30,8 +30,8 @@ data "terraform_remote_state" "eks_state" {
 }
 
 resource "aws_security_group" "sg-rds" {
-  name        = "SG-pos-tech-diner-rds-consulta"
-  description = "pos-tech-diner-consulta"
+  name        = "SG-pos-tech-diner-rds"
+  description = "pos-tech-diner"
   vpc_id      = data.terraform_remote_state.eks_state.outputs["aws_vpc_main_id"]
 
   ingress {
@@ -64,10 +64,10 @@ resource "aws_db_subnet_group" "default" {
 }
 
 resource "aws_db_instance" "rds" {
-  db_name        = "postechdinerrdsconsulta"
+  db_name        = "postechdinerrds"
   engine         = "postgres"
   engine_version = "13.11"
-  identifier     = "rds-pos-tech-diner-consulta"
+  identifier     = "rds-pos-tech-diner"
   # manage_master_user_password  = true 
   username                     = "username"
   password                     = "password"
@@ -88,3 +88,4 @@ resource "aws_db_instance" "rds" {
   copy_tags_to_snapshot        = true
   delete_automated_backups     = true
 }
+

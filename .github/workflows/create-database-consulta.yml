@@ -1,0 +1,23 @@
+name: Terraform Create Database Consulta Workflow
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'db/consulta/**'
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'db/consulta/**'
+  workflow_dispatch:
+
+jobs:
+  print_success:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Print Success Message
+        run: echo "Successful execution!"
