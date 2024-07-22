@@ -88,3 +88,4 @@ resource "aws_db_instance" "rds" {
   copy_tags_to_snapshot        = true
   delete_automated_backups     = true
 }
+
