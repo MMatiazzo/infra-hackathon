@@ -30,8 +30,8 @@ data "terraform_remote_state" "eks_state" {
 }
 
 resource "aws_security_group" "sg-rds" {
-  name        = "SG-pos-tech-diner-rds-consulta"
-  description = "pos-tech-diner-consulta"
+  name        = "SG-pos-tech-hacka-rds-consulta"
+  description = "pos-tech-hacka-consulta"
   vpc_id      = data.terraform_remote_state.eks_state.outputs["aws_vpc_main_id"]
 
   ingress {
@@ -64,13 +64,13 @@ resource "aws_db_subnet_group" "default" {
 }
 
 resource "aws_db_instance" "rds" {
-  db_name        = "postechdinerrdsconsulta"
+  db_name        = "postechhackardsconsulta"
   engine         = "postgres"
   engine_version = "13.11"
-  identifier     = "rds-pos-tech-diner-consulta"
+  identifier     = "rds-pos-tech-hacka-consulta"
   # manage_master_user_password  = true 
-  username                     = "username"
-  password                     = "password"
+  username                     = var.db_username
+  password                     = var.db_password
   instance_class               = "db.t3.micro"
   storage_type                 = "gp2"
   allocated_storage            = "20"

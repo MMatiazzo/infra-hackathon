@@ -1,16 +1,16 @@
-name: Terraform Create Database Consulta Workflow
+name: Terraform Create Database Autenticacao Workflow
 
 on:
   push:
     branches:
       - master
     paths:
-      - 'db/consulta/**'
+      - 'db/autenticacao/**'
   pull_request:
     branches:
       - master
     paths:
-      - 'db/consulta/**'
+      - 'db/autenticacao/**'
   workflow_dispatch:
 
 env:
