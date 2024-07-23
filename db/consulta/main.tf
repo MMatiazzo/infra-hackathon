@@ -29,30 +29,30 @@ data "terraform_remote_state" "eks_state" {
   }
 }
 
-resource "aws_security_group" "sg-rds" {
-  name        = "SG-pos-tech-hacka-rds-consulta"
-  description = "pos-tech-hacka-consulta"
+resource "aws_security_group" "sg-rds-consulta" {
+  name        = "SG-pos-tech-diner-rds-consulta"
+  description = "pos-tech-diner"
   vpc_id      = data.terraform_remote_state.eks_state.outputs["aws_vpc_main_id"]
 
   ingress {
     description = "VPC"
-    from_port   = 5432
-    to_port     = 5432
+    from_port   = 5433
+    to_port     = 5433
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
   }
 
   egress {
     description = "VPC"
-    from_port   = 5432
-    to_port     = 5432
+    from_port   = 5433
+    to_port     = 5433
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
   }
 }
 
 resource "aws_db_subnet_group" "default" {
-  name = "aws_subnet_groups_rds"
+  name = "aws_subnet_groups_rds_consulta"
   subnet_ids = [
     data.terraform_remote_state.eks_state.outputs["aws_subnet_private_us_east_1a_id"],
     data.terraform_remote_state.eks_state.outputs["aws_subnet_private_us_east_1b_id"]
@@ -76,7 +76,7 @@ resource "aws_db_instance" "rds" {
   allocated_storage            = "20"
   max_allocated_storage        = "30"
   multi_az                     = false
-  vpc_security_group_ids       = [aws_security_group.sg-rds.id]
+  vpc_security_group_ids       = [aws_security_group.sg-rds-consulta.id]
   db_subnet_group_name         = aws_db_subnet_group.default.name
   apply_immediately            = true
   skip_final_snapshot          = true
@@ -87,5 +87,6 @@ resource "aws_db_instance" "rds" {
   backup_window                = "00:00-00:30"
   copy_tags_to_snapshot        = true
   delete_automated_backups     = true
+  port                         = 5433
 }
 
